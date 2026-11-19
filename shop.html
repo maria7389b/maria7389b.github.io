@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloemenwinkel Madelief – Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f8fb;
+    --paper: #ffffff;
+    --ink: #13293d;
+    --muted: #5d7285;
+    --line: #dbe6ee;
+    --blue: #1f7aa8;
+    --blue-dark: #155a7d;
+    --pink: #e07a9a;
+    --green: #25a35a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+  a { color: inherit; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 22px; }
+
+  .demo-bar { background: var(--ink); color: #dcebf5; text-align: center; font-size: 0.8rem; padding: 6px 12px; }
+  .demo-bar a { color: #9fd4f0; }
+
+  nav { background: var(--bg); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; }
+  nav .wrap { display: flex; justify-content: space-between; align-items: center; height: 62px; }
+  .logo { font-family: 'DM Serif Display', serif; font-size: 1.35rem; text-decoration: none; }
+  .logo span { color: var(--pink); }
+  nav ul { display: flex; gap: 22px; list-style: none; }
+  nav ul a { text-decoration: none; color: var(--muted); font-size: 0.92rem; }
+  @media (max-width: 640px) { nav ul { display: none; } }
+
+  .hero { padding: 70px 0 60px; display: grid; gap: 30px; grid-template-columns: 1.2fr 1fr; align-items: center; }
+  @media (max-width: 720px) { .hero { grid-template-columns: 1fr; text-align: center; } }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 7vw, 3.6rem); line-height: 1.08; margin-bottom: 16px; font-weight: 400; }
+  .hero h1 em { color: var(--pink); }
+  .hero p { color: var(--muted); font-size: 1.05rem; margin-bottom: 26px; max-width: 460px; }
+  @media (max-width: 720px) { .hero p { margin-left: auto; margin-right: auto; } }
+  .btn { display: inline-block; padding: 13px 22px; border-radius: 12px; font-weight: 600; text-decoration: none; font-size: 0.95rem; }
+  .btn.wa { background: var(--green); color: #fff; }
+  .btn.ghost { border: 1.5px solid var(--ink); margin-left: 8px; }
+  .bouquet { display: flex; justify-content: center; align-items: flex-end; gap: 10px; height: 200px; }
+  .stem { width: 6px; background: #4f8f4a; border-radius: 3px; position: relative; }
+  .stem::before { content: ""; position: absolute; top: -34px; left: 50%; transform: translateX(-50%); width: 46px; height: 46px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 6px rgba(255,255,255,0.6); }
+  .s1 { height: 120px; --c: #e07a9a; } .s2 { height: 160px; --c: #f2b84b; } .s3 { height: 140px; --c: #1f7aa8; } .s4 { height: 110px; --c: #c86fc9; }
+
+  section { padding: 60px 0; border-top: 1px solid var(--line); }
+  h2 { font-family: 'DM Serif Display', serif; font-size: 2rem; font-weight: 400; margin-bottom: 6px; }
+  .sub { color: var(--muted); margin-bottom: 30px; }
+
+  .products { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .product { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+  .product .img { height: 140px; display: grid; place-items: center; }
+  .product .img span { width: 70px; height: 70px; border-radius: 50%; background: var(--c); box-shadow: 22px 10px 0 -8px var(--c2), -22px 12px 0 -10px var(--c3); }
+  .i1 { background: #fde8ef; --c: #e07a9a; --c2: #f2b84b; --c3: #c86fc9; }
+  .i2 { background: #fff4dc; --c: #f2b84b; --c2: #ffffff; --c3: #e8963c; }
+  .i3 { background: #e3f1f9; --c: #1f7aa8; --c2: #9fd4f0; --c3: #ffffff; }
+  .i4 { background: #e9f5e7; --c: #4f8f4a; --c2: #8cc47f; --c3: #2f6b2b; }
+  .product .body { padding: 16px 18px 18px; }
+  .product b { display: block; font-weight: 600; }
+  .product small { color: var(--muted); display: block; margin-bottom: 10px; }
+  .product .row { display: flex; justify-content: space-between; align-items: center; }
+  .price { font-weight: 600; color: var(--blue-dark); font-size: 1.05rem; }
+  .tag { font-size: 0.72rem; background: #fde8ef; color: #a3405f; border-radius: 6px; padding: 2px 8px; }
+
+  .info { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+  .card h3 { font-family: 'DM Serif Display', serif; font-weight: 400; font-size: 1.3rem; margin-bottom: 10px; }
+  .card p, .card li { color: var(--muted); font-size: 0.95rem; }
+  .card ul { list-style: none; }
+  .card li { padding: 4px 0; }
+  .card li::before { content: "✓ "; color: var(--green); font-weight: 600; }
+
+  .contact { text-align: center; background: var(--blue); color: #fff; border-top: none; }
+  .contact h2 { color: #fff; }
+  .contact .sub { color: #d4ecf8; }
+  .contact .phone { margin-top: 14px; font-weight: 600; }
+
+  footer { padding: 26px 0; text-align: center; color: var(--muted); font-size: 0.85rem; }
+  footer a { color: var(--blue); }
+</style>
+</head>
+<body>
+
+<div class="demo-bar">Dit is een demowebsite, gemaakt door <a href="index.html">Maria</a>. De winkel bestaat niet.</div>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="logo">Bloemen<span>winkel</span> Madelief</a>
+    <ul>
+      <li><a href="#aanbod">Aanbod</a></li>
+      <li><a href="#info">Info</a></li>
+      <li><a href="#bestellen">Bestellen</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="wrap hero" id="top">
+  <div>
+    <h1>Verse bloemen,<br><em>elke dag.</em></h1>
+    <p>Boeketten voor elke gelegenheid. Bestel via WhatsApp en haal op in de winkel of laat leveren in Antwerpen.</p>
+    <a href="#bestellen" class="btn wa">Bestel via WhatsApp</a>
+    <a href="#aanbod" class="btn ghost">Bekijk aanbod</a>
+  </div>
+  <div class="bouquet" aria-hidden="true">
+    <div class="stem s1"></div><div class="stem s2"></div><div class="stem s3"></div><div class="stem s4"></div>
+  </div>
+</header>
+
+<section id="aanbod">
+  <div class="wrap">
+    <h2>Ons aanbod</h2>
+    <p class="sub">Alle boeketten worden met de hand gemaakt.</p>
+    <div class="products">
+      <div class="product"><div class="img i1"><span></span></div><div class="body"><b>Boeket Lente</b><small>Roze en gele bloemen</small><div class="row"><span class="price">€ 25</span><span class="tag">Populair</span></div></div></div>
+      <div class="product"><div class="img i2"><span></span></div><div class="body"><b>Zonnebloemen</b><small>Vijf grote zonnebloemen</small><div class="row"><span class="price">€ 18</span></div></div></div>
+      <div class="product"><div class="img i3"><span></span></div><div class="body"><b>Boeket Zee</b><small>Blauw en wit</small><div class="row"><span class="price">€ 30</span></div></div></div>
+      <div class="product"><div class="img i4"><span></span></div><div class="body"><b>Kamerplant</b><small>Groen, makkelijk te verzorgen</small><div class="row"><span class="price">€ 15</span><span class="tag">Nieuw</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="info">
+  <div class="wrap">
+    <h2>Goed om te weten</h2>
+    <p class="sub">Snel en eenvoudig.</p>
+    <div class="info">
+      <div class="card"><h3>Openingsuren</h3><p>Dinsdag – zaterdag: 9:00 – 18:00<br>Zondag: 9:00 – 13:00<br>Maandag: gesloten</p></div>
+      <div class="card"><h3>Levering</h3><ul><li>Levering in Antwerpen</li><li>Bestel voor 12:00, vandaag geleverd</li><li>Gratis vanaf € 40</li></ul></div>
+      <div class="card"><h3>Adres</h3><p>Voorbeeldlaan 8<br>2000 Antwerpen</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="bestellen" class="contact">
+  <div class="wrap">
+    <h2>Bestellen</h2>
+    <p class="sub">Stuur ons een bericht met je keuze. We antwoorden binnen het uur.</p>
+    <a href="#bestellen" class="btn wa">Stuur een WhatsApp</a>
+    <div class="phone">+32 400 00 00 00</div>
+  </div>
+</section>
+
+<footer>
+  Demowebsite gemaakt door <a href="index.html">Maria</a> · maria7389b.github.io
+</footer>
+
+</body>
+</html>
