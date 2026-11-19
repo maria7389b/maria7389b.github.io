@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eethuis Lindeblad – Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf5ec;
+    --paper: #ffffff;
+    --ink: #2b2118;
+    --muted: #7a6a5a;
+    --line: #eadfcd;
+    --terra: #c8553d;
+    --terra-dark: #9e3f2c;
+    --olive: #5c6b3c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--cream); color: var(--ink); line-height: 1.6; }
+  a { color: inherit; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 22px; }
+
+  .demo-bar { background: var(--ink); color: #f3e9d8; text-align: center; font-size: 0.8rem; padding: 6px 12px; }
+  .demo-bar a { color: #f6b49f; }
+
+  nav { background: var(--cream); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; }
+  nav .wrap { display: flex; justify-content: space-between; align-items: center; height: 62px; }
+  .logo { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.3rem; text-decoration: none; }
+  .logo span { color: var(--terra); }
+  nav ul { display: flex; gap: 22px; list-style: none; }
+  nav ul a { text-decoration: none; color: var(--muted); font-size: 0.92rem; }
+  nav ul a:hover { color: var(--ink); }
+  @media (max-width: 640px) { nav ul { display: none; } }
+
+  .hero { padding: 80px 0 70px; text-align: center; }
+  .hero .kicker { color: var(--olive); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.04em; margin-bottom: 14px; }
+  .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2.2rem, 7vw, 3.8rem); line-height: 1.08; margin-bottom: 18px; }
+  .hero h1 em { font-style: italic; color: var(--terra); }
+  .hero p { color: var(--muted); max-width: 520px; margin: 0 auto 30px; font-size: 1.05rem; }
+  .btn { display: inline-block; padding: 13px 24px; border-radius: 99px; font-weight: 600; text-decoration: none; font-size: 0.95rem; }
+  .btn.primary { background: var(--terra); color: #fff; }
+  .btn.primary:hover { background: var(--terra-dark); }
+  .btn.ghost { border: 1.5px solid var(--ink); margin-left: 8px; }
+  .plates { display: flex; justify-content: center; gap: 18px; margin-top: 50px; }
+  .plate { width: 90px; height: 90px; border-radius: 50%; border: 8px solid var(--paper); box-shadow: 0 0 0 1px var(--line); }
+  .plate.a { background: radial-gradient(circle at 40% 40%, #e9a25b 0 30%, #7f9a4a 31% 55%, #f3e4c8 56%); }
+  .plate.b { background: radial-gradient(circle at 55% 45%, #c8553d 0 35%, #e8c07d 36% 60%, #f6ecd9 61%); }
+  .plate.c { background: radial-gradient(circle at 45% 55%, #5c6b3c 0 25%, #d9b36c 26% 52%, #f3e4c8 53%); }
+
+  section { padding: 64px 0; border-top: 1px solid var(--line); }
+  h2 { font-family: 'Fraunces', serif; font-size: 2rem; margin-bottom: 6px; }
+  .sub { color: var(--muted); margin-bottom: 32px; }
+
+  .menu-grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+  .menu-col { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+  .menu-col h3 { font-family: 'Fraunces', serif; font-size: 1.25rem; color: var(--terra); margin-bottom: 14px; }
+  .dish { display: flex; justify-content: space-between; gap: 14px; padding: 10px 0; border-bottom: 1px dashed var(--line); }
+  .dish:last-child { border-bottom: none; }
+  .dish b { font-weight: 600; display: block; }
+  .dish small { color: var(--muted); font-size: 0.85rem; }
+  .price { font-weight: 600; white-space: nowrap; }
+  .veg { display: inline-block; font-size: 0.7rem; color: var(--olive); border: 1px solid var(--olive); border-radius: 4px; padding: 0 5px; margin-left: 6px; vertical-align: middle; }
+
+  .info { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+  .card h3 { font-family: 'Fraunces', serif; font-size: 1.2rem; margin-bottom: 12px; }
+  .hours div { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 0.95rem; }
+  .hours div:last-child { border-bottom: none; }
+  .closed { color: var(--terra); }
+  .map { height: 140px; border-radius: 12px; margin-top: 14px; background:
+      linear-gradient(90deg, transparent 48%, #fff 48% 52%, transparent 52%),
+      linear-gradient(0deg, transparent 45%, #fff 45% 50%, transparent 50%),
+      #e4dccb; position: relative; }
+  .map::after { content: ""; position: absolute; left: 50%; top: 46%; width: 18px; height: 18px; background: var(--terra); border: 3px solid #fff; border-radius: 50% 50% 50% 0; transform: translate(-50%, -100%) rotate(-45deg); }
+
+  .reserve { text-align: center; background: var(--terra); color: #fff; border-top: none; }
+  .reserve h2 { color: #fff; }
+  .reserve .sub { color: #fbe0d8; }
+  .reserve .btn { background: #fff; color: var(--terra-dark); }
+  .reserve .phone { margin-top: 16px; font-size: 1.1rem; font-weight: 600; }
+
+  footer { padding: 26px 0; text-align: center; color: var(--muted); font-size: 0.85rem; }
+  footer a { color: var(--terra); }
+</style>
+</head>
+<body>
+
+<div class="demo-bar">Dit is een demowebsite, gemaakt door <a href="index.html">Maria</a>. Het restaurant bestaat niet.</div>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="logo">Eethuis <span>Lindeblad</span></a>
+    <ul>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#info">Openingsuren</a></li>
+      <li><a href="#reserveren">Reserveren</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="kicker">ANTWERPEN · SINDS 2026</div>
+    <h1>Eerlijk eten,<br><em>gewoon lekker.</em></h1>
+    <p>Huisgemaakte gerechten met verse, lokale producten. Kom langs voor lunch of diner.</p>
+    <a href="#reserveren" class="btn primary">Reserveer een tafel</a>
+    <a href="#menu" class="btn ghost">Bekijk het menu</a>
+    <div class="plates" aria-hidden="true">
+      <div class="plate a"></div><div class="plate b"></div><div class="plate c"></div>
+    </div>
+  </div>
+</header>
+
+<section id="menu">
+  <div class="wrap">
+    <h2>Ons menu</h2>
+    <p class="sub">Elke week vers. Vraag naar ons dagmenu.</p>
+    <div class="menu-grid">
+      <div class="menu-col">
+        <h3>Voorgerechten</h3>
+        <div class="dish"><div><b>Tomatensoep</b><small>met basilicum en brood</small></div><span class="price">€ 7</span></div>
+        <div class="dish"><div><b>Kaaskroketten</b><small>twee stuks, met citroen</small></div><span class="price">€ 11</span></div>
+        <div class="dish"><div><b>Gegrilde groenten <span class="veg">VEG</span></b><small>met hummus</small></div><span class="price">€ 10</span></div>
+      </div>
+      <div class="menu-col">
+        <h3>Hoofdgerechten</h3>
+        <div class="dish"><div><b>Stoofvlees</b><small>met frietjes en salade</small></div><span class="price">€ 19</span></div>
+        <div class="dish"><div><b>Zalm uit de oven</b><small>met puree en spinazie</small></div><span class="price">€ 22</span></div>
+        <div class="dish"><div><b>Groentecurry <span class="veg">VEG</span></b><small>met rijst</small></div><span class="price">€ 17</span></div>
+      </div>
+      <div class="menu-col">
+        <h3>Desserts</h3>
+        <div class="dish"><div><b>Chocolademousse</b><small>huisgemaakt</small></div><span class="price">€ 8</span></div>
+        <div class="dish"><div><b>Wafel</b><small>met slagroom en fruit</small></div><span class="price">€ 8</span></div>
+        <div class="dish"><div><b>Koffie met zoetje</b><small>espresso of cappuccino</small></div><span class="price">€ 5</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="info">
+  <div class="wrap">
+    <h2>Bezoek ons</h2>
+    <p class="sub">We zien je graag.</p>
+    <div class="info">
+      <div class="card hours">
+        <h3>Openingsuren</h3>
+        <div><span>Maandag</span><span class="closed">Gesloten</span></div>
+        <div><span>Dinsdag – vrijdag</span><span>11:30 – 22:00</span></div>
+        <div><span>Zaterdag</span><span>12:00 – 23:00</span></div>
+        <div><span>Zondag</span><span>12:00 – 21:00</span></div>
+      </div>
+      <div class="card">
+        <h3>Adres</h3>
+        <p>Voorbeeldstraat 12<br>2000 Antwerpen</p>
+        <div class="map" aria-label="Kaart (voorbeeld)"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reserveren" class="reserve">
+  <div class="wrap">
+    <h2>Reserveer een tafel</h2>
+    <p class="sub">Bel ons of stuur een bericht. We antwoorden snel.</p>
+    <a href="#reserveren" class="btn">Bel nu</a>
+    <div class="phone">+32 3 000 00 00</div>
+  </div>
+</section>
+
+<footer>
+  Demowebsite gemaakt door <a href="index.html">Maria</a> · maria7389b.github.io
+</footer>
+
+</body>
+</html>
