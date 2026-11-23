@@ -1,0 +1,11 @@
+{
+  "name": "maria-site-audio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "audio": "node generate-audio.mjs"
+  },
+  "dependencies": {
+    "@elevenlabs/elevenlabs-js": "latest"
+  }
+}
